@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // TODO make some changes
-        Toast.makeText(this,"Semmi",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Uj verzio",Toast.LENGTH_LONG).show();
 
         // TODO make other changes
 
