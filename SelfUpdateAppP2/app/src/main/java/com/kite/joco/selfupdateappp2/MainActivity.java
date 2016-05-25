@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
    public ProgressDialog pbDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,16 @@ public class MainActivity extends AppCompatActivity {
         //pbDialog = new ProgressDialog(this);
         pbDialog.setCancelable(false);
         pbDialog.setMessage("Frissítés file letöltése ...");
-        pbDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        pbDialog.setProgress(0);
-        pbDialog.setMax(1000);
+        //pbDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        //pbDialog.setProgress(0);
+        //pbDialog.setMax(1000);
         pbDialog.show();
 
         updateapp.execute("http://192.168.3.115/ugyvitel/apk/update.apk");
     }
 
-       public void handleDialogProgress(int p) {        pbDialog.setProgress(p);
+       public void handleDialogProgress(int p) {
+           pbDialog.setProgress(p);
     }
 
 
@@ -69,14 +72,14 @@ class UpdateApp extends AsyncTask<String,Integer, String> {
     @Override
     protected String doInBackground(String... arg0) {
 
-        final Thread t = new Thread() {
+        /*final Thread t = new Thread() {
             @Override
             public void run() {
                 int jumptime = 0;
                 int totalProgressTime = 1000;
                 while (jumptime < totalProgressTime) {
                     try {
-                        sleep(10000);
+                        sleep(10);
                         jumptime += 1;
                         publishProgress(jumptime);
                     } catch (InterruptedException ex) {
@@ -86,7 +89,7 @@ class UpdateApp extends AsyncTask<String,Integer, String> {
             }
         };
 
-        t.start();
+        t.start();*/
 
 
         try {
@@ -106,6 +109,8 @@ class UpdateApp extends AsyncTask<String,Integer, String> {
             FileOutputStream fos = new FileOutputStream(outputFile);
 
             InputStream is = c.getInputStream();
+
+            //int hossz = c.getContentLength();
 
             byte[] buffer = new byte[1024];
             int len1 = 0;
@@ -129,7 +134,8 @@ class UpdateApp extends AsyncTask<String,Integer, String> {
 
     @Override
     protected void onProgressUpdate(Integer... values) {
-        handleDialogProgress(values[0]);
+
+        handleDialogProgress(values[0] );
     }
 
 
